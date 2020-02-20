@@ -87,12 +87,12 @@ const App = () => {
             return <div className={`flex flex-col m-1 justify-center`} key={i + e.name}>
               <div>
                 <div onClick={() => active ? Select(-1) : Select(i)} className={`p-2 m-2 relative div-animate bg-center bg-cover flex flex-col justify-around ${active ? '' : ''} 
-                  cursor-pointer text-gray-200 rounded-lg w-auto  inline-block`} style={{
+                  cursor-pointer rounded-lg text-gray-200 w-auto  inline-block`} style={{
                     transition: "500ms", width: active ? '300px' : '200px',
                     height: active ? '1px' : '200px', backgroundImage: `url(https://picsum.photos/${e.img}/${e.img})`,
                     opacity: active ? 0 : 1,
                   }}>
-                  <div className={`${active ? 'invisible' : 'visible'} bg-black opacity-50 absolute top-0 left-0 w-full h-full`} style={{ zIndex: 0 }}></div>
+                  <div className={`${active ? 'invisible' : 'visible'} bg-black opacity-50 absolute top-0 left-0 rounded-lg w-full h-full`} style={{ zIndex: 0 }}></div>
                   <div className={`${active ? 'invisible' : 'visible'}`} style={{ zIndex: 1 }}>
                     <p className={`icon-cat`}>{e.name.slice(0, 2)}</p>
                     <p className={`${txtHover} text-md font-bold`}>{e.name.slice(2, e.name.length)}</p>
