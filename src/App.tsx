@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 import './css/tailwind.css';
 import './css/main.css';
 import FooterCred from './components/FooterCredit';
+import { connect } from 'react-redux';
+import { Titem, ACTIONS } from './store/actions/main';
+import { Dispatch } from 'redux';
 
-const App = () => {
+interface Iapp {
+  items: Titem[];
+  setItem: (e: Titem[]) => void;
+}
+
+const App: React.FC<Iapp> = ({ items, setItem }) => {
   const [selected, Select] = useState(-1);
   const [category, setCateg] = useState({ mode: -1, item: '' });
   const [cartList, setCart] = useState({ itemList: [''], prices: [0] })
@@ -11,8 +19,17 @@ const App = () => {
   const returnRandom = (e: number) => {
     return Math.floor(Math.random() * e)
   }
+  const filterVerify = (e: any) => {
+    switch (category.mode) {
+      case 0:
+        return e.name.slice(0, 2) === category.item;
+      case 1:
+        return e.promo;
+      default:
+        return true;
+    }
+  }
   const firstName = ['🎧Headset', '🖱Mouse', '🍷Wine', '👞Boots', '🛸Spaceship', '🕶X-ray glasses', '🛠Hammer', '🛠Screwdriver', '🎸Electric Guitar'];
-
   const nameRandomizer = () => {
     const secondName = ['slim', 'compact', 'special', 'deluxe', 'plus', 'mega'];
     const brandName = ['macrosuft', 'ipear', 'giordanno', 'volvet', 'raize'];
@@ -29,8 +46,20 @@ const App = () => {
 
     return [`${nameSelect} ${modelName} ${brand}`, desc[returnRandom(desc.length)], desclong];
   }
-  const [itemSeed] = useState(() => {
-    const a = [];
+
+
+  const cat = [];
+  for (let i in firstName) {
+    // console.log(i)
+    if (i) {
+      cat.push(firstName[i].slice(0, 2));
+    }
+  }
+  const cater: any = new Set(cat);
+  const ater = [...cater];
+  const txtHover = '';
+  const a: Titem[] = [];
+  if (items.length <= 1) {
     for (let i = 0; i < 50; i++) {
       const exe = nameRandomizer();
       a.push({
@@ -42,29 +71,8 @@ const App = () => {
         desclong: exe[2]
       });
     }
-    return a;
-  })
-
-  const filterVerify = (e: any) => {
-    switch (category.mode) {
-      case 0:
-        return e.name.slice(0, 2) === category.item;
-      case 1:
-        return e.promo;
-      default:
-        return true;
-    }
+    setItem(a);
   }
-  const cat = [];
-  for (let i in firstName) {
-    // console.log(i)
-    if (i) {
-      cat.push(firstName[i].slice(0, 2));
-    }
-  }
-  const cater: any = new Set(cat);
-  const ater = [...cater];
-  const txtHover = '';
 
   return (
     <div className="text-center bg-gray-200 subpixel-antialiased">
@@ -79,7 +87,7 @@ const App = () => {
         {category.item.length > 0 ? <>{category.item}<button onClick={() => setCateg({ mode: -1, item: '' })} className={`px-2 py-1`}>x</button></> : ''}
       </div>
       <div className={`flex flex-wrap flex-row justify-center`}>
-        {itemSeed.map((e: any, i: any) => {
+        {items.map((e: any, i: any) => {
           const v = filterVerify(e);
           if (v) {
             const active = selected === i;
@@ -107,6 +115,7 @@ const App = () => {
                   <div className={`bg-white flex flex-col justify-center shadow rounded-lg p-4 m-2 ${active ? 'visible' : 'invisible absolute'}`}
                     style={{ transition: '200ms', width: active ? '300px' : '0px', opacity: active ? 1 : 1, transform: `scale(${active ? 1 : 0})`, zIndex: 1 }}>
                     <img className={`rounded-full mx-auto m-2`} width={150} height={150} src={`https://picsum.photos/${e.img}/${e.img}`} />
+                    <p>{e.name}</p>
                     <p>{upPrice}</p>
                     <p className={`text-sm`}>{e.desclong}</p>
                     <button className={`bg-green-600 text-white font-bold p-1 rounded-lg m-1`}
@@ -124,9 +133,20 @@ const App = () => {
           }
         })}
       </div>
-      <FooterCred/>
+      <FooterCred />
     </div>
   );
 }
+const mapStateToProps = (state: any) => {
+  const t = state;
+  return {
+    items: t.itemList,
+  }
+}
 
-export default App;
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setItem: (e: Titem[]) => dispatch({ type: ACTIONS.initialSetup, payload: e })
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);
