@@ -10,15 +10,24 @@
     "@types/node": "^12.12.28",
     "@types/react": "^16.9.20",
     "@types/react-dom": "^16.9.5",
+    "@types/react-redux": "^7.1.7",
+    "@types/redux-thunk": "^2.1.0",
+    "autoprefixer": "^9.7.4",
+    "axios": "^0.19.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-redux": "^7.2.0",
     "react-scripts": "3.4.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "tailwindcss": "^1.2.0",
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run build:css && react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build:css": "tailwind build src/css/index.css -o src/css/tailwind.css",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -35,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "ts-jest": "^25.2.1"
   }
 }
