@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './css/tailwind.css';
 import './css/main.css';
+import FooterCred from './components/FooterCredit';
 
 const App = () => {
   const [selected, Select] = useState(-1);
@@ -85,11 +86,11 @@ const App = () => {
             const upPrice = e.promo ? <><span className="line-through text-red-400 opacity-50">${e.price}</span> ${(e.price * 0.8).toFixed(2)}</> : '$' + e.price;
             return <div className={`flex flex-col m-1 justify-center`} key={i + e.name}>
               <div>
-                <div onClick={() => active ? Select(-1) : Select(i)} className={`p-2 m-2 relative div-animate bg-center bg-cover flex flex-col justify-around ${active ? 'absolute' : ''} 
-          cursor-pointer text-gray-200 rounded-lg w-auto ${active ? '' : ''}
-          inline-block`} style={{
-                    transition: "500ms", width: active ? '0' : '200px', height: active ? '0' : '200px', backgroundImage: `url(https://picsum.photos/${e.img}/${e.img})`,
-                    transform: `scale(${active ? 0 : 1})`
+                <div onClick={() => active ? Select(-1) : Select(i)} className={`p-2 m-2 relative div-animate bg-center bg-cover flex flex-col justify-around ${active ? '' : ''} 
+                  cursor-pointer text-gray-200 rounded-lg w-auto  inline-block`} style={{
+                    transition: "500ms", width: active ? '300px' : '200px',
+                    height: active ? '1px' : '200px', backgroundImage: `url(https://picsum.photos/${e.img}/${e.img})`,
+                    opacity: active ? 0 : 1,
                   }}>
                   <div className={`${active ? 'invisible' : 'visible'} bg-black opacity-50 absolute top-0 left-0 w-full h-full`} style={{ zIndex: 0 }}></div>
                   <div className={`${active ? 'invisible' : 'visible'}`} style={{ zIndex: 1 }}>
@@ -100,27 +101,30 @@ const App = () => {
                   </div>
                 </div>
               </div>
-              <div className={`flex flex-col inline-block ${active ? 'visible' : 'invisible'} relative`}>
-                <div><button className={`px-2 absolute py-1 bg-red-600 text-white font-bold`} style={{ top: "-5px", right: "-5px", zIndex: 2 }} onClick={() => Select(-1)}>X</button></div>
-                <div className={`bg-white flex flex-col justify-center shadow rounded-lg p-4 m-2 ${active ? 'visible' : 'invisible absolute'}`}
-                  style={{ transition: '500ms', width: active ? '300px' : '0px', opacity: active ? 1 : 1, transform: `scale(${active ? 1 : 0})`, zIndex: 1 }}>
-                  <img className={`rounded-full mx-auto m-2`} width={150} height={150} src={`https://picsum.photos/${e.img}/${e.img}`} />
-                  <p>{upPrice}</p>
-                  <p className={`text-sm`}>{e.desclong}</p>
-                  <button className={`bg-green-600 text-white font-bold p-1 rounded-lg m-1`}
-                    onClick={() => {
-                      const a: any = cartList;
-                      a.itemList.push(e.name);
-                      a.prices.push(e.promo ? e.price * 0.8 : e.price);
-                      setCart(a);
-                    }}>Add to cart 🛒</button>
-                  <button className={`bg-red-600 text-white font-bold p-1 rounded-lg m-1 w-auto inline-block`}>Buy now</button>
+              <div className={`relative`}>
+                <div className={`flex flex-col inline-block ${active ? 'visible' : 'invisible'} absolute`} style={{ top: "-110px", zIndex: 3 }}>
+                  <div><button className={`px-2 absolute py-1 bg-red-600 text-white font-bold`} style={{ top: "-5px", right: "-5px", zIndex: 2 }} onClick={() => Select(-1)}>X</button></div>
+                  <div className={`bg-white flex flex-col justify-center shadow rounded-lg p-4 m-2 ${active ? 'visible' : 'invisible absolute'}`}
+                    style={{ transition: '200ms', width: active ? '300px' : '0px', opacity: active ? 1 : 1, transform: `scale(${active ? 1 : 0})`, zIndex: 1 }}>
+                    <img className={`rounded-full mx-auto m-2`} width={150} height={150} src={`https://picsum.photos/${e.img}/${e.img}`} />
+                    <p>{upPrice}</p>
+                    <p className={`text-sm`}>{e.desclong}</p>
+                    <button className={`bg-green-600 text-white font-bold p-1 rounded-lg m-1`}
+                      onClick={() => {
+                        const a: any = cartList;
+                        a.itemList.push(e.name);
+                        a.prices.push(e.promo ? e.price * 0.8 : e.price);
+                        setCart(a);
+                      }}>Add to cart 🛒</button>
+                    <button className={`bg-red-600 text-white font-bold p-1 rounded-lg m-1 w-auto inline-block`}>Buy now</button>
+                  </div>
                 </div>
               </div>
             </div>
           }
         })}
       </div>
+      <FooterCred/>
     </div>
   );
 }
