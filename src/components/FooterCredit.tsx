@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import gitLight from '../imgs/png/gitHubLight.png';
 import soLogo from '../imgs/svg/so-icon.svg';
 import lnLogo from '../imgs/png/lnIcon.png';
@@ -11,15 +11,7 @@ interface Ifooter {
 
 const FooterCred: React.FC<Ifooter> = ({cartToggle}) => {
     const [clicked, setClick] = useState(false);
-    // const [scrollY, setScroll] = useState(1);
-    // const [bubbles] = useState(() => {
-    //     const a = [];
-    //     for (let i = 0; i < 50; i++) {
-    //         const seeder = [Math.random(), Math.random()];
-    //         a.push(seeder);
-    //     }
-    //     return a;
-    // })
+
     const [waterSeed] = useState(() => {
         const a = [];
         for (let i = 0; i < 50; i++) {
@@ -29,17 +21,7 @@ const FooterCred: React.FC<Ifooter> = ({cartToggle}) => {
         }
         return a;
     })
-    // const scrollHandler = () => {
-    //     setScroll(window.scrollY);
-    // }
-    // useEffect(() => {
-    //     window.addEventListener('scroll', scrollHandler);
-    //     window.addEventListener('touchmove', scrollHandler);    
-    //     return () => {
-    //         window.removeEventListener('scroll', scrollHandler);
-    //         window.removeEventListener('touchmove', scrollHandler);
-    //     }
-    // }, []);
+
 
     return (<>
         <div className={`absolute top-0 left-0`} style={{ zIndex: -1 }}>
@@ -49,7 +31,7 @@ const FooterCred: React.FC<Ifooter> = ({cartToggle}) => {
                 </div>
                 {waterSeed.map((e: number, i: number) => {
                     return (
-                        <div className="wave-animate absolute" style={{ left: 200 * i + 'px' }}>
+                        <div className="wave-animate absolute" key={e + i + 'bg'} style={{ left: 200 * i + 'px' }}>
                         </div>
                     )
                 })}
@@ -77,7 +59,7 @@ const FooterCred: React.FC<Ifooter> = ({cartToggle}) => {
                             <div className="p-2 transition duration-200 transform hover:scale-125">
                                 <a href={'https://www.linkedin.com/in/contrateme/'}><img src={lnLogo} alt="LN profile" width={32} /></a>
                             </div>
-                            <div className={`p-2 bg-red-500 cursor-pointer`} onClick={() => setClick(false)} >
+                            <div className={`p-2 bg-red-500 cursor-pointer font-bold text-white`} onClick={() => setClick(false)} >
                         X    
                         </div>   
                         </div>                
@@ -85,7 +67,7 @@ const FooterCred: React.FC<Ifooter> = ({cartToggle}) => {
                 </div>
                 <div onClick={() => setClick(true)} className={`absolute alien cursor-pointer ${clicked ? 'invisible' : 'visible'}`} 
                 style={{left: cartToggle ? '45vw' : '50px', top: '5px'}}>
-                🛸
+                <span role="img" aria-label="alien ship">🛸</span>
                 </div>           
             </div>
         </div>
