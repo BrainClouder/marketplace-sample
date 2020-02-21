@@ -26,6 +26,7 @@ interface Iapp {
 const App: React.FC<Iapp> = ({ items, openModal, cartList, categories,
   openCartModal, Select, selected, setMobileDetector, isMobile }) => {
   const [category, setCateg] = useState({ mode: -1, item: '' });
+  const [loaded, doLoad] = useState(false);
   const resizeHandler = () => {
     setMobileDetector(window.innerWidth < 600);
   }
@@ -35,6 +36,10 @@ const App: React.FC<Iapp> = ({ items, openModal, cartList, categories,
       window.removeEventListener('resize', resizeHandler);
     }
   }, []);
+  if (!loaded) {
+    setMobileDetector(window.innerWidth < 600);
+    doLoad(true);
+  }
 
   const filterVerify = (e: any) => {
     switch (category.mode) {
