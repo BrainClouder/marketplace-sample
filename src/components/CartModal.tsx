@@ -6,11 +6,12 @@ import { Tstate, ACTIONS, TcartItem } from '../store/actions/main';
 
 interface TCartModal {
     cartList: TcartItem[];
+    isMobile: boolean;
     toggle: () => void;
     remove: (e: number) => void;
 }
 
-const CartModal: React.FC<TCartModal> = ({ cartList, toggle, remove }) => {
+const CartModal: React.FC<TCartModal> = ({ cartList, toggle, remove, isMobile }) => {
     useEffect(() => {
         window.addEventListener('click', clickHandler);
         return () => {
@@ -38,7 +39,7 @@ const CartModal: React.FC<TCartModal> = ({ cartList, toggle, remove }) => {
         <div className={`fixed top-0 left-0 w-screen h-screen parent text-gray-800`} style={{ zIndex: 1 }}>
         </div>
         <div className="absolute top-0 left-0 w-screen">
-        <div className="relative mx-auto bg-gray-100 text-gray-800 p-2 text-center rounded-lg" style={{ width: '50vw', marginTop: '100px', zIndex: 1 }}>
+        <div className="relative mx-auto bg-gray-100 text-gray-800 p-2 text-center rounded-lg" style={{ width: isMobile ? '100vw' : '50vw', marginTop: '100px', zIndex: 1 }}>
                 <p className={`font-bold text-sm p-2`}>Your cart</p>
                 <div className={`flex flex-col justify-center max-w-sm mx-auto`}>
                     <div className={`flex flex-row justify-center font-bold text-gray-700`}>
@@ -81,6 +82,7 @@ const mapStateToProps = (state: Tstate) => {
     const t = state;
     return {
         cartList: t.cartList,
+        isMobile: t.isMobile
     }
 }
 

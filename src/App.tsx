@@ -79,8 +79,12 @@ const App: React.FC<Iapp> = ({ items, openModal, cartList, categories,
   });
 
 
-  return (<>
+  const blurEf = `blur(${selected !== -1 || openModal ? 4 : 0}px)`;
+  return (
     <div className={`text-center subpixel-antialiased`}>
+      <div style={{
+          filter: blurEf
+        }}>
       <div>
         <button onClick={() => {
           if (cartList.length >= 1) openCartModal();
@@ -94,14 +98,11 @@ const App: React.FC<Iapp> = ({ items, openModal, cartList, categories,
         <button className={`px-2 py-1 text-white font-bold rounded-full 
         ${category.mode === 1 ? 'bg-black' : ' bg-red-700'}`} onClick={() => setCateg({ mode: 1, item: 'OFFER' })}>OFFER</button>
       </div>
-      <div>
+      <div >
         {category.item.length > 0 ? <><span role={category.item !== 'OFFER' ? 'img' : ''}>{category.item}</span><button onClick={() => setCateg({ mode: -1, item: '' })}
           className={`px-2 py-1`}>x</button></> : ''}
       </div>
-      <div className={`flex m-4 ${isMobile ? 'flex-col' : 'flex-wrap flex-row justify-center'}`}
-        style={{
-          filter: `blur(${selected !== -1 || openModal ? 4 : 0}px)`
-        }}>
+      <div className={`flex m-4 ${isMobile ? 'flex-col' : 'flex-wrap flex-row justify-center'}`}>
         {itemsFiltered.map((ar: any, i: number) => {
           const e = ar[0];
           const iRef = ar[1];
@@ -152,11 +153,13 @@ const App: React.FC<Iapp> = ({ items, openModal, cartList, categories,
 
         })}
       </div>
-    </div>
+      </div>
+    
     {selected !== -1 ? <ProductModal /> : ''}
     <FooterCred />
     {openModal ? <CartModal /> : ''}
-  </>
+    </div>
+
   );
 }
 const mapStateToProps = (state: any) => {
