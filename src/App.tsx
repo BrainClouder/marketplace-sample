@@ -28,7 +28,7 @@ const App: React.FC<Iapp> = ({ items, openModal, cartList, categories,
   const [category, setCateg] = useState({ mode: -1, item: '' });
   const [loaded, doLoad] = useState(false);
   const resizeHandler = () => {
-    setMobileDetector(window.innerWidth < 650);
+    setMobileDetector(window.innerWidth < 799);
   }
   useEffect(() => {
     window.addEventListener('resize', resizeHandler)
@@ -37,7 +37,7 @@ const App: React.FC<Iapp> = ({ items, openModal, cartList, categories,
     }
   }, []);
   if (!loaded) {
-    setMobileDetector(window.innerWidth < 650);
+    setMobileDetector(window.innerWidth < 799);
     doLoad(true);
   }
 
