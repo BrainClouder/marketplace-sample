@@ -1,11 +1,92 @@
+@keyframes item-show {
+  0% {
+    transform: rotate(2deg); }
+  25% {
+    transform: rotate(-2deg) scale(1.01); }
+  50% {
+    transform: rotate(2deg) scale(1.01); }
+  75% {
+    transform: rotate(-2deg); }
+  100% {
+    transform: rotate(2deg); } }
 @keyframes item-blink {
   0% {
-    transform: scale(1.2); }
+    transform: scale(1.04); }
   50% {
-    transform: scale(1.5); }
+    transform: scale(1.05); }
   100% {
-    transform: scale(1.3); } }
+    transform: scale(1.04); } }
+@keyframes window-enter {
+  0% {
+    transform: translate(0, 50px);
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@keyframes waveing {
+  0% {
+    transform: translateX(0px) rotate(0.5deg); }
+  25% {
+    transform: translateX(-50px) rotate(-0.8deg); }
+  50% {
+    transform: translateX(0px) rotate(0.5deg); }
+  75% {
+    transform: translateX(-50px) rotate(-0.8deg); }
+  100% {
+    transform: translateX(0px) rotate(0.5deg); } }
+@keyframes image-enter {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@keyframes alien-ship {
+  0% {
+    transform: translate(0, 0); }
+  100% {
+    transform: translate(25px, 0); } }
+.alien {
+  font-size: 35px;
+  animation: alien-ship 1s ease-in-out alternate infinite; }
+
+.image-enter {
+  animation: image-enter 1s; }
+
+body {
+  overflow-x: hidden !important; }
+
+.wave-animate {
+  height: 50px;
+  width: 220px;
+  top: 100px;
+  border-radius: 100%;
+  background-color: #ffffff;
+  transition: 500ms;
+  animation: waveing 6s ease-in-out alternate infinite; }
+
+.water-blue {
+  background-image: linear-gradient(to bottom, #ffffff 0%, #88c4ff 5%, #2b95ff 15%, #18538d 100%); }
+
+.window-appear {
+  z-index: 5;
+  animation: window-enter 500ms ease-in-out; }
+
 .div-animate:hover > div > .icon-cat {
   animation: item-blink 1s ease-in-out infinite; }
+
+.footer-hover {
+  height: 22px;
+  transition: 500ms;
+  animation: item-show 6s ease-in-out infinite; }
+
+.top-ship {
+  z-index: 0 !important; }
+
+.hover-click {
+  width: 180px;
+  height: 10px; }
+
+.footer-clicked {
+  transition: 500ms;
+  animation: image-enter 500ms ease-in-out !important;
+  height: 45px !important; }
 
 /*# sourceMappingURL=main.css.map */
